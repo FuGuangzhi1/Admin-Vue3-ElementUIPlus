@@ -64,15 +64,6 @@ let routes: Array<RouteRecordRaw> = [
     component: () => import('../components/page/NotFound.vue'),
   },
 ]
-// let routerData: any = await getMenuAsync()
-// let routerDatachildren: any = routerData.children
-// routerDatachildren.forEach(element => {
-//   routes.push({
-//     path: `/${element.path}`,
-//     name: 'element.path',
-//     component: () => import('../views/About.vue')
-//   })
-// });
 
 const router = createRouter({
   history: createWebHashHistory(),

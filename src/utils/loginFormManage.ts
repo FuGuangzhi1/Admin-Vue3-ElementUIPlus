@@ -2,7 +2,7 @@ import router from "@/router";
 import { ElForm } from "element-plus";
 import { reactive, ref } from "vue";
 import AcountApi from '@/api/acountApi'
-import { tokenRecord } from "./tokenManger";
+import { tokenRecord } from "./tokenManger"
 //登录的校验
 export const rules = reactive({
   email: [
@@ -47,6 +47,7 @@ export const submitForm = (formEl: InstanceType<typeof ElForm> | undefined) => {
       if (data.state === 0) {
         tokenRecord(data.data)
         router.push('/home')
+
       }
     } else {
       console.log('error format')

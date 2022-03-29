@@ -36,18 +36,18 @@
 import LeftMenu from './Layout/LeftMenu.vue';
 // import Head from '@/views/Layout/Head.vue';
 import { watchIsCollapse, getMenuAsync } from '@/utils/home'
-import { onMounted, shallowRef } from 'vue';
+import { shallowRef } from 'vue';
 import Tage from '@/views/Layout/Tage.vue'
+import { sleep } from '@/utils/sleep';
 // import { getTokenRecord } from '@/utils/tokenManger';
-const initSuccess: any = shallowRef<Boolean>(false)
+const initSuccess: any = shallowRef<Boolean>(false);
 const data: any = shallowRef([]);
-onMounted(async () => {
-  setTimeout(()=>console.log("Awit one second"), 1000)
-  data.value = await getMenuAsync()
-  setInterval(() => {
-    initSuccess.value = true
-  }, 1000)
-})
+sleep(2000).then(_ => {
+  getMenuAsync().then(res => {
+    data.value = res
+    setTimeout(() => initSuccess.value = true, 1000)
+  })
+});
 </script>
 <style lang="scss" scoped>
 .common-layout {

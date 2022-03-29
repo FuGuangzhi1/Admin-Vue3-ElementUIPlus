@@ -45,12 +45,24 @@ let data: any = ref({})
 const squareUrl = ref<string>('');
 
 // const fileList: any = []
-PersonalInfo.GetUserAsync().then(res => {
-    data.value = res.data
-})
+if (window.localStorage.getItem('UserData') == null) {
+    PersonalInfo.GetUserAsync().then(res => {
+        data.value = res.data
+        window.localStorage.setItem('UserData', JSON.stringify(res.data))
+    })
+} else {
+    data.value = JSON.parse(window.localStorage.getItem('UserData') as string)
+}
+
 const ProfilePhoto = async () => {
-    const ProfilePhoto = await PersonalInfo.GetProfilePhotoAsync();
-    squareUrl.value = ProfilePhoto.data;
+    if (window.localStorage.getItem('ProfilePhotoData') == null) {
+        const ProfilePhoto = await PersonalInfo.GetProfilePhotoAsync();
+        squareUrl.value = ProfilePhoto.data;
+        window.localStorage.setItem('ProfilePhotoData', ProfilePhoto.data)
+    } else {
+        squareUrl.value = window.localStorage.getItem('ProfilePhotoData') ?? ""
+    }
+
 }
 ProfilePhoto().then(_ => { })
 const handleRequest = (e: any) => {
