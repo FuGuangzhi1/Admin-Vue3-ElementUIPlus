@@ -5,6 +5,6 @@
 对应后端Git地址<a href="https://github.com/FuGuangzhi1/ShowTimeCodeCSharpWebapi">后端</a> <br/>
 
 # 项目运行
-下载依赖 Npm Install
-启动  npm run serve
-（注意需要运行后端前端才可以登录和使用相应功能）
+下载依赖 Npm Install<br/>
+启动  npm run serve<br/>
+（注意需要运行后端前端才可以登录和使用相应功能）<br/>
