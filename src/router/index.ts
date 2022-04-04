@@ -62,6 +62,9 @@ let routes: Array<RouteRecordRaw> = [
     // 404页面  
     path: "/:pathMatch(.*)",
     component: () => import('../components/page/NotFound.vue'),
+    meta:{
+      keepAlive: true
+    }
   },
 ]
 

@@ -8,13 +8,19 @@
       <!-- 左菜单 -->
       <el-container>
         <el-aside width="200px">
-          <LeftMenu v-if="initSuccess" :fatherMethod="watchIsCollapse" :menuData="data" />
+          <keep-alive include="leftMenu">
+            <LeftMenu v-if="initSuccess" :fatherMethod="watchIsCollapse" :menuData="data" />
+          </keep-alive>
         </el-aside>
         <el-container>
           <!-- 主要显示页面 -->
           <el-main>
             <Tage />
-            <!-- <router-view /> -->
+            <router-view v-slot="{ Component }">
+              <transition name="el-zoom-in-center">
+                <component :is="Component" />
+              </transition>
+            </router-view>
           </el-main>
           <!-- 底部 -->
           <el-footer>
@@ -42,7 +48,13 @@ import { sleep } from '@/utils/sleep';
 // import { getTokenRecord } from '@/utils/tokenManger';
 const initSuccess: any = shallowRef<Boolean>(false);
 const data: any = shallowRef([]);
-sleep(2000).then(_ => {
+let time = 8000;
+if (window.sessionStorage.getItem('Login') === 'Value') {
+  time = 100;
+} else {
+  window.sessionStorage.setItem("Login", "Value");
+}
+sleep(time).then(_ => {
   getMenuAsync().then(res => {
     data.value = res
     setTimeout(() => initSuccess.value = true, 1000)

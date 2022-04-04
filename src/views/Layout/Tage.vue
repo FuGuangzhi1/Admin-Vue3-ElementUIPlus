@@ -13,14 +13,7 @@
                 :key="item.name"
                 :label="item.title"
                 :name="item.name"
-            >
-                <router-view v-slot="{ Component }">
-                    <transition name="el-zoom-in-center">
-                        <component :is="Component" />
-                    </transition>
-                </router-view>
-                <!-- <router-view /> -->
-            </el-tab-pane>
+            ></el-tab-pane>
         </el-tabs>
     </span>
 </template>
@@ -53,16 +46,8 @@ const removeTab = (targetName: string) => {
     font-size: 32px;
     font-weight: 600;
 }
-.el-tab-pane {
-    height: 100%;
-}
+
 .el-tabs__content {
-    height: 100%;
-}
-.el-tabs,
-.el-tabs--card,
-.el-tabs--top,
-.demo-tabs {
-    height: 80%;
+    padding: 0px !important;
 }
 </style>

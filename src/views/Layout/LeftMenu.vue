@@ -50,6 +50,7 @@ import {
 } from '@/business/leftMenuBLL'
 import { defineComponent } from 'vue'
 export default defineComponent({
+    name:"leftMenu",
     props: {
         fatherMethod: {
             type: Function,
