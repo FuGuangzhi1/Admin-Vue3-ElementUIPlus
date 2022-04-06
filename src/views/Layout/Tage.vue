@@ -13,6 +13,7 @@
                 :key="item.name"
                 :label="item.title"
                 :name="item.name"
+                :lazy="true"
             ></el-tab-pane>
         </el-tabs>
     </span>
