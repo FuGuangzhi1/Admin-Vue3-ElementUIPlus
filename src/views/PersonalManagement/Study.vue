@@ -30,16 +30,20 @@
             <el-table-column prop="studyInfoName" label="StudyInfoName" />
             <el-table-column prop="studyInfoDescribe" label="StudyInfoDescribe" />
             <el-table-column prop="studyTypeName" label="StudyTypeName" />
-            <el-table-column prop="createTime" label="CreateTime" />
-            <el-table-column prop="updateTime" label="UpdateTime" />
+            <el-table-column prop="createTime" label="CreateTime">
+                <template #default="scope">
+                    <span>{{ jsonTimeFormat(scope.row.createTime) }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="updateTime" label="UpdateTime">
+                <template #default="scope">
+                    <span>{{ jsonTimeFormat(scope.row.updateTime) }}</span>
+                </template>
+            </el-table-column>
             <el-table-column label="Operations">
                 <template #default="scope">
                     <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                    <el-button
-                        size="small"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)"
-                    >Delete</el-button>
+                    <DeleteButton @confirmEvent="handleDelete(scope.$index, scope.row)"></DeleteButton>
                 </template>
             </el-table-column>
         </el-table>
@@ -66,7 +70,7 @@
                     />
                 </el-form-item>
                 <el-form-item prop="studyTypeId" label="StudyTypeName">
-                    <el-select v-model="fromData.studyTypeId">
+                    <el-select v-model="fromData.studyTypeId" @change="fromChange">
                         <el-option
                             v-for="item in selectData.value"
                             :key="item.id"
@@ -93,9 +97,11 @@
 </template>
 
 <script lang="ts" setup>
+import DeleteButton from '@/components/button/DeleteButton.vue'
 import { Search } from '@element-plus/icons-vue'
 import StudyInfoApi from '@/api/studyInfoApi'
 import {
+    fromChange,
     resetForm,
     ruleFormRef,
     rules,
@@ -115,7 +121,7 @@ import {
     loadTableData
 } from '@/business/studyBLL'
 import { onMounted } from 'vue';
-
+import { jsonTimeFormat } from '@/utils/dataTimeHelper'
 //下拉框数据获取，并存入浏览器数据库
 if (window.localStorage.getItem("SelectData") != null) {
     selectData.value = JSON.parse(window.localStorage.getItem("SelectData") ?? '')

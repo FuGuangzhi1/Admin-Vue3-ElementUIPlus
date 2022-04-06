@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="openSwitch" @click="openSwitch">
+        <div class="openSwitch" @click="watchIsCollapse">
             <component style="width: 20px; height: 20px; margin-top: 2px;" :is="iconName"></component>
         </div>
         <el-menu
@@ -24,16 +24,14 @@
                     :index="subItem.menuId + ''"
                     v-for="subItem in item.children"
                     :key="subItem.menuId"
+                    @click="skip(subItem.path, subItem.menuName)"
                 >
                     <template #title>
                         <component
                             style="width: 20px; height: 20px; color: #000;"
                             :is="subItem.icon"
                         ></component>
-                        <span
-                            class="spanChilder"
-                            @click="skip(subItem.path, subItem.menuName)"
-                        >{{ subItem.menuName }}</span>
+                        <span class="spanChilder">{{ subItem.menuName }}</span>
                     </template>
                 </el-menu-item>
             </el-sub-menu>
@@ -44,39 +42,39 @@
 <script lang="ts">
 import {
     handleOpen,
-    handleClose, isCollapse,
+    handleClose,
     iconName,
     skip,
 } from '@/business/leftMenuBLL'
-import { defineComponent } from 'vue'
+
+import HomeApi from '@/api/homeApi'
+import { defineComponent, onMounted, ref } from 'vue'
 export default defineComponent({
-    name:"leftMenu",
-    props: {
-        fatherMethod: {
-            type: Function,
-            default: null
-        }
-        , menuData: {
-            type: Object,
-            default: []
-        }
-    },
+    name: "leftMenu",
     setup(props, { emit, attrs, slots }) {
-        let menuList: any = [{}]
-        if (props.menuData) {
-            menuList = props.menuData
-        }
-        const openSwitch = () => {
-            props.fatherMethod(isCollapse.value)
-            isCollapse.value = !isCollapse.value
+        const isCollapse = ref<Boolean>(false)
+        const menuList: any = ref([])
+        onMounted(async () => {
+            const result = await HomeApi.GetMenuAsync()
+            menuList.value = result.data
+        })
+        const watchIsCollapse = () => {
+            const el = document.getElementsByClassName('el-aside')[0] as HTMLElement
+            if (isCollapse.value) {
+                el.style.width = "200px";
+                isCollapse.value = false
+            } else {
+                el.style.width = "64px";
+                isCollapse.value = true
+            }
         }
         return {
             handleOpen,
             handleClose,
-            openSwitch,
             isCollapse,
             iconName,
             skip,
+            watchIsCollapse,
             menuList
         }
     }

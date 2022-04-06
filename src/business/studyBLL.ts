@@ -48,9 +48,9 @@ export interface StudyInfo {
 //添加或者删除的表单
 export const fromData: StudyInfo = reactive({
     id: '00000000-0000-0000-0000-000000000000',
-    studyInfoName: '',
-    studyInfoDescribe: '',
-    studyTypeId: '',
+    studyInfoName: 'star',
+    studyInfoDescribe: 'star',
+    studyTypeId: 'star',
     createTime: timestampToTime()
 })
 
@@ -119,4 +119,7 @@ export const rules = reactive({
 export const resetForm = (formEl: InstanceType<typeof ElForm> | undefined) => {
     if (!formEl) return
     formEl.resetFields()
+}
+export const fromChange = (val: any) => {
+    studyTypeId.value = val
 }

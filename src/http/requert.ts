@@ -1,6 +1,6 @@
 
 import { massageShow } from '@/utils/messageInfo';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ElLoading } from 'element-plus';
 
 
@@ -41,17 +41,25 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
 axios.interceptors.response.use((response: AxiosResponse<any>) => {
   // 结束loading
   endLoading();
+  console.log(response)
   //不同相应所给的提示
   if (response.data) {
     massageShow(response.data.state, response.data.massage)
   }
   return response.data;
-}, error => {
+}, (error: AxiosError) => {
   if (token == null) {
     massageShow(1, "登录过期")
   }
   // 结束loading
   endLoading();
+  console.log(error.response?.headers['token-expired'])
+  //过期提示
+  if (error.response?.headers['token-expired']) {
+    massageShow(1, "登录过期")
+    window.localStorage.setItem('access_token', '')
+    return
+  }
   // 错误提醒
   massageShow(1, error.message)
   return Promise.reject(error);

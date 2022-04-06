@@ -16,5 +16,11 @@ export const timestampToTime = () => {
     //         : date.getMinutes() + ":";
     // var ss =
     //     date.getSeconds() < 10 ? "0" + date.getDate() : date.getSeconds();
-    return Y + M + D ;
+    return Y + M + D;
+}
+
+export const jsonTimeFormat = (jsonTime: any) => {
+    var dateee = new Date(jsonTime).toJSON();
+    var date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+    return date
 }

@@ -9,7 +9,7 @@
       <el-container>
         <el-aside width="200px">
           <keep-alive include="leftMenu">
-            <LeftMenu v-if="initSuccess" :fatherMethod="watchIsCollapse" :menuData="data" />
+            <LeftMenu v-if="initSuccess"  />
           </keep-alive>
         </el-aside>
         <el-container>
@@ -40,26 +40,12 @@
 </template>
 <script lang="ts" setup>
 import LeftMenu from './Layout/LeftMenu.vue';
-// import Head from '@/views/Layout/Head.vue';
-import { watchIsCollapse, getMenuAsync } from '@/utils/home'
 import { shallowRef } from 'vue';
 import Tage from '@/views/Layout/Tage.vue'
-import { sleep } from '@/utils/sleep';
-// import { getTokenRecord } from '@/utils/tokenManger';
 const initSuccess: any = shallowRef<Boolean>(false);
-const data: any = shallowRef([]);
-let time = 8000;
-if (window.sessionStorage.getItem('Login') === 'Value') {
-  time = 100;
-} else {
-  window.sessionStorage.setItem("Login", "Value");
-}
-sleep(time).then(_ => {
-  getMenuAsync().then(res => {
-    data.value = res
-    setTimeout(() => initSuccess.value = true, 1000)
-  })
-});
+
+setTimeout(() => initSuccess.value = true, 1000)
+
 </script>
 <style lang="scss" scoped>
 .common-layout {
