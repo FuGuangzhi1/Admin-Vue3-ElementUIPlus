@@ -1,15 +1,15 @@
 <template>
     <span>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
-            <el-form-item label="StudyInfoName">
+            <el-form-item label="知识名称">
                 <el-input
                     v-model="formInline.studyInfoName"
                     :suffix-icon="Search"
-                    placeholder="StudyInfoName"
+                    placeholder="请输入知识名称..."
                 ></el-input>
             </el-form-item>
-            <el-form-item label="StudyTypeName">
-                <el-select v-model="formInline.studyTypeId" :clearable="true" placeholder="Select">
+            <el-form-item label="知识类型">
+                <el-select v-model="formInline.studyTypeId" :clearable="true" placeholder="请选择...">
                     <el-option
                         v-for="item in selectData.value"
                         :key="item.id"
@@ -25,17 +25,17 @@
                 <el-button type="warning">ImportExecl</el-button>
             </el-form-item>
         </el-form>
-        <el-table :data="tableData" style="width: 100%">
+        <el-table :data="tableData" style="width: 100% content">
             <el-table-column type="selection" width="55" />
-            <el-table-column prop="studyInfoName" label="StudyInfoName" />
-            <el-table-column prop="studyInfoDescribe" label="StudyInfoDescribe" />
-            <el-table-column prop="studyTypeName" label="StudyTypeName" />
-            <el-table-column prop="createTime" label="CreateTime">
+            <el-table-column prop="studyInfoName" align="center" label="知识名称" />
+            <el-table-column prop="studyInfoDescribe" align="center" label="知识描述" />
+            <el-table-column prop="studyTypeName" align="center" label="知识类型" />
+            <el-table-column prop="createTime" align="center" label="创建时间">
                 <template #default="scope">
                     <span>{{ jsonTimeFormat(scope.row.createTime) }}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="updateTime" label="UpdateTime">
+            <el-table-column prop="updateTime"  align="center" label="修改时间">
                 <template #default="scope">
                     <span>{{ jsonTimeFormat(scope.row.updateTime) }}</span>
                 </template>
@@ -49,12 +49,15 @@
         </el-table>
         <el-pagination
             v-show="isShowPagination"
-            small
-            background
-            layout="prev, pager, next"
+            v-model:currentPage="currentPage"
+            v-model:page-size="pageSize"
+            :page-sizes="[5, 10, 20]"
+            layout="sizes, prev, pager, next"
             :total="total"
-            class="mt-4"
-        ></el-pagination>
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+        />
         <el-dialog width="500px" v-model="centerDialogVisible" :title="tip" center>
             <el-form
                 ref="ruleFormRef"
@@ -101,6 +104,10 @@ import DeleteButton from '@/components/button/DeleteButton.vue'
 import { Search } from '@element-plus/icons-vue'
 import StudyInfoApi from '@/api/studyInfoApi'
 import {
+    handleCurrentChange,
+    handleSizeChange,
+    currentPage,
+    pageSize,
     fromChange,
     resetForm,
     ruleFormRef,
@@ -122,6 +129,7 @@ import {
 } from '@/business/studyBLL'
 import { onMounted } from 'vue';
 import { jsonTimeFormat } from '@/utils/dataTimeHelper'
+
 //下拉框数据获取，并存入浏览器数据库
 if (window.localStorage.getItem("SelectData") != null) {
     selectData.value = JSON.parse(window.localStorage.getItem("SelectData") ?? '')

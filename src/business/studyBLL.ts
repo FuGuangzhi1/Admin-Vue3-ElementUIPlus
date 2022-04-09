@@ -18,6 +18,10 @@ export const selectData: any = reactive([]);
 export const ruleFormRef = ref<InstanceType<typeof ElForm> | undefined>()
 //下拉框真实数据
 export const studyTypeId = ref('')
+//当前页面
+export const currentPage = ref(0)
+//一页显示的数据
+export const pageSize = ref(5)
 //查询条件
 export const formInline = reactive({
     studyInfoName: '',
@@ -26,7 +30,7 @@ export const formInline = reactive({
 //表格数据获取
 export const loadTableData = async () => {
     console.log(formInline)
-    const result = await StudyInfoApi.GetStudyInfoViewAsync(formInline.studyInfoName, formInline.studyTypeId);
+    const result = await StudyInfoApi.GetStudyInfoViewAsync(formInline.studyInfoName, formInline.studyTypeId, currentPage.value, pageSize.value);
     total.value = result.total
     isShowPagination.value = parseInt(result.total) > 5
     tableData.value = result.data
@@ -122,4 +126,17 @@ export const resetForm = (formEl: InstanceType<typeof ElForm> | undefined) => {
 }
 export const fromChange = (val: any) => {
     studyTypeId.value = val
+}
+//分页事件
+export const handleSizeChange = async (val: number) => {
+    pageSize.value = val
+    await loadTableData()
+    console.log(val)
+}
+//分页事件
+export const handleCurrentChange = async (val: number) => {
+
+    currentPage.value = val
+    await loadTableData()
+    console.log(val)
 }

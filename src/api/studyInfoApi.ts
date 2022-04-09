@@ -3,13 +3,16 @@ import httpClinet from "@/http/requert";
 class StudyInfoApi {
     private url = 'api/StudyInfo/'
 
-    public async GetStudyInfoViewAsync(studyInfoName: string | null, studyTypeId: string | null): Promise<any> {
+    public async GetStudyInfoViewAsync(studyInfoName: string | null, studyTypeId: string | null, currentPage: Number, pageSize: Number): Promise<any> {
         return await httpClinet.request({
             url: this.url + 'GetStudyInfoView',
             method: 'get',
             params: {
                 studyInfoName: studyInfoName,
-                studyTypeId: studyTypeId
+                studyTypeId: studyTypeId,
+                currentPage: currentPage,
+                pageSize: pageSize,
+
             }
         })
     }

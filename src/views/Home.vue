@@ -8,9 +8,7 @@
       <!-- 左菜单 -->
       <el-container>
         <el-aside width="200px">
-          <keep-alive include="leftMenu">
-            <LeftMenu v-if="initSuccess"  />
-          </keep-alive>
+          <LeftMenu v-if="initSuccess" />
         </el-aside>
         <el-container>
           <!-- 主要显示页面 -->

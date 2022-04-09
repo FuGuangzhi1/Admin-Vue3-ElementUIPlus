@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="openSwitch" @click="watchIsCollapse">
-            <component style="width: 20px; height: 20px; margin-top: 2px;" :is="iconName"></component>
+            <component
+                style="width: 18px; height: 20px; margin-top: 2px; color:white;"
+                :is="iconName"
+            ></component>&nbsp;
         </div>
         <el-menu
             active-text-color="#283048"
@@ -60,11 +63,14 @@ export default defineComponent({
         })
         const watchIsCollapse = () => {
             const el = document.getElementsByClassName('el-aside')[0] as HTMLElement
+            const elicon = document.getElementsByClassName('icon')[0] as HTMLElement
             if (isCollapse.value) {
                 el.style.width = "200px";
+                elicon.style.width = "18px";
                 isCollapse.value = false
             } else {
-                el.style.width = "64px";
+                el.style.width = "62px";
+                elicon.style.width = "14px";
                 isCollapse.value = true
             }
         }
@@ -86,7 +92,7 @@ export default defineComponent({
 <style scoped>
 .openSwitch {
     background-color: #8e9eab;
-    width: 100%;
+    width: 99.5%;
     text-align: center;
     /* margin-left: 50%;
     transform: translate(0, -50%); */

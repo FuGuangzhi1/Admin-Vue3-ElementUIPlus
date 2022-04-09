@@ -11,12 +11,14 @@
       <div class="close" @click="onShow" v-bind:title="message">
         <component style="width: 1em; height: 1em; margin-right: 8px;" :is="iconName"></component>
       </div>
-      <h1>Login</h1>
+      <h1>
+        <span>Login</span>
+      </h1>
       <el-form-item label="Email" prop="email">
-        <el-input v-model="loginForm.email" type="text" autocomplete="off"></el-input>
+        <el-input v-model="loginForm.email" :clearable="true" type="text"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
-        <el-input show-password v-model="loginForm.password" type="password" autocomplete="off"></el-input>
+        <el-input show-password v-model="loginForm.password"  type="password"></el-input>
       </el-form-item>
       <p>
         No account number?
