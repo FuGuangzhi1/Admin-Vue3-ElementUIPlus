@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <el-card shadow="always">
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="知识名称">
                 <el-input
@@ -25,7 +25,7 @@
                 <el-button type="warning">ImportExecl</el-button>
             </el-form-item>
         </el-form>
-        <el-table :data="tableData" style="width: 100% content">
+        <el-table :data="tableData" height="420px" style="width: 100% content">
             <el-table-column type="selection" width="55" />
             <el-table-column prop="studyInfoName" align="center" label="知识名称" />
             <el-table-column prop="studyInfoDescribe" align="center" label="知识描述" />
@@ -35,7 +35,7 @@
                     <span>{{ jsonTimeFormat(scope.row.createTime) }}</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="updateTime"  align="center" label="修改时间">
+            <el-table-column prop="updateTime" align="center" label="修改时间">
                 <template #default="scope">
                     <span>{{ jsonTimeFormat(scope.row.updateTime) }}</span>
                 </template>
@@ -96,7 +96,7 @@
                 </span>
             </template>
         </el-dialog>
-    </span>
+    </el-card>
 </template>
 
 <script lang="ts" setup>

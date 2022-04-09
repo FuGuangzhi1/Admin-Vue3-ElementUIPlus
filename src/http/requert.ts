@@ -25,6 +25,7 @@ const startLoading = () => {
 
 const getToken = (): string | null => {
   let token: string | null = window.localStorage.getItem('access_token')
+  console.log(token)
   if (token === null || token === '') {
     return getToken()
   } else {

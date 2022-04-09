@@ -4,6 +4,19 @@
       <!-- 头部 -->
       <el-header>
         <!-- <Head /> -->
+        <!-- <el-menu
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+        >
+          <el-sub-menu index="2">
+            <template #title>Workspace</template>
+            <el-menu-item index="2-1">item one</el-menu-item>
+            <el-menu-item index="2-2">item two</el-menu-item>
+            <el-menu-item index="2-3">item three</el-menu-item>
+          </el-sub-menu>
+        </el-menu> -->
       </el-header>
       <!-- 左菜单 -->
       <el-container>
@@ -38,11 +51,16 @@
 </template>
 <script lang="ts" setup>
 import LeftMenu from './Layout/LeftMenu.vue';
-import { shallowRef } from 'vue';
+import { shallowRef, ref } from 'vue';
 import Tage from '@/views/Layout/Tage.vue'
 const initSuccess: any = shallowRef<Boolean>(false);
 
-setTimeout(() => initSuccess.value = true, 1000)
+
+const activeIndex = ref('1')
+const handleSelect = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+setTimeout(() => initSuccess.value = true, 200)
 
 </script>
 <style lang="scss" scoped>
@@ -54,16 +72,16 @@ setTimeout(() => initSuccess.value = true, 1000)
     height: 100%;
   }
   .el-aside {
-    background-color: #8e9eab;
+background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   }
   .el-header {
-    background-color: #8e9eab;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   }
   .el-footer {
-    background-color: #8e9eab;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   }
   .el-main {
-    background-color: white;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   }
 }
 .copyright {

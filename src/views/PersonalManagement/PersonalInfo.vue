@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <el-card class="cardHigth">
         <div>
             <el-row :gutter="12">
                 <el-col :span="6">
@@ -35,7 +35,7 @@
                 </el-col>
             </el-row>
         </div>
-    </span>
+    </el-card>
 </template>
 <script lang="ts" setup>
 import { data, squareUrl, handleRequest } from '@/business/personalInfoBLL'
@@ -50,5 +50,10 @@ import { data, squareUrl, handleRequest } from '@/business/personalInfoBLL'
     width: 80px;
     height: 80px;
     border-radius: 100%;
+}
+</style>
+<style>
+.cardHigth {
+    height: 520px;
 }
 </style>

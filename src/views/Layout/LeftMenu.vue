@@ -2,16 +2,13 @@
     <div>
         <div class="openSwitch" @click="watchIsCollapse">
             <component
-                style="width: 18px; height: 20px; margin-top: 2px; color:white;"
+                style="width: 18px; height: 20px; margin-top: 2px; color:black;"
                 :is="iconName"
             ></component>&nbsp;
         </div>
         <el-menu
-            active-text-color="#283048"
-            background-color=" #8e9eab"
             class="el-menu-vertical-demo"
             default-active="2"
-            text-color="#ffffff"
             @open="handleOpen"
             @close="handleClose"
             :collapse="isCollapse"
@@ -52,14 +49,21 @@ import {
 
 import HomeApi from '@/api/homeApi'
 import { defineComponent, onMounted, ref } from 'vue'
+import { getLocalData, setLocalData } from '@/utils/localStorageHelper'
 export default defineComponent({
     name: "leftMenu",
     setup(props, { emit, attrs, slots }) {
         const isCollapse = ref<Boolean>(false)
         const menuList: any = ref([])
         onMounted(async () => {
-            const result = await HomeApi.GetMenuAsync()
-            menuList.value = result.data
+            if (getLocalData('GetMenu') == null) {
+                const result = await HomeApi.GetMenuAsync()
+                menuList.value = result.data
+                setLocalData('GetMenu', JSON.stringify(result.data))
+            } else {
+                menuList.value = JSON.parse(getLocalData('GetMenu') ?? '')
+            }
+
         })
         const watchIsCollapse = () => {
             const el = document.getElementsByClassName('el-aside')[0] as HTMLElement
@@ -91,7 +95,7 @@ export default defineComponent({
 
 <style scoped>
 .openSwitch {
-    background-color: #8e9eab;
+    /* background-color: #8e9eab; */
     width: 99.5%;
     text-align: center;
     /* margin-left: 50%;
@@ -103,6 +107,7 @@ export default defineComponent({
 .el-menu-vertical-demo {
     width: 100%;
     text-align: center;
+    border: 0px;
 }
 .spanParent {
     font-size: 18px;

@@ -11,9 +11,9 @@
       <div class="close" @click="onShow" v-bind:title="message">
         <component style="width: 1em; height: 1em; margin-right: 8px;" :is="iconName"></component>
       </div>
-      <h1>
+      <!-- <h1>
         <span>Login</span>
-      </h1>
+      </h1> -->
       <el-form-item label="Email" prop="email">
         <el-input v-model="loginForm.email" :clearable="true" type="text"></el-input>
       </el-form-item>
@@ -25,7 +25,7 @@
         <el-link href="#/Register">Register</el-link>&nbsp;now
       </p>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(ruleFormRef)">Submit</el-button>
+        <el-button type="primary" @click="submitForm(ruleFormRef)">Login</el-button>
         <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
       </el-form-item>
     </el-form>

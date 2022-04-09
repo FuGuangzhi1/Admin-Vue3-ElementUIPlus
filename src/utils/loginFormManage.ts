@@ -63,7 +63,7 @@ export const onShow = () => {
     formEle.style.cssText = " opacity: 1;"
     isShowForm.value = !isShowForm.value
   } else {
-    formEle.style.cssText = " opacity: 0.1;"
+    formEle.style.cssText = " opacity: 0.05;"
     isShowForm.value = !isShowForm.value
   }
 }

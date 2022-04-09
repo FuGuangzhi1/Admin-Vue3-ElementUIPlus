@@ -5,28 +5,30 @@
   background-size: 100% 100%;
   background-repeat: no-repeat;
   .el-form {
-    span{
-      color: white;
-    }
+    background-color: white;
+    // span {
+    //   color: cornflowerblue;
+    // }
     .close {
       position: absolute;
       top: 3px;
       right: 5px;
     }
-    h1 {
-      text-align: center;
-      color: #000;
-      padding-bottom: 10px;
-    }
+    // h1 {
+    //   text-align: center;
+    //   padding-bottom: 10px;
+    // }
     p {
       font-size: 15px;
       position: relative;
       top: 20%;
     }
-    padding-top: 20px;
-    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    border-radius: 10px;
+    text-shadow: 3px 5px 5px #656B79;
+    box-shadow:0 2px 27px 6px rgba(0, 0, 0, .12);
+    padding-top: 40px;
     width: 500px;
-    height: 220px;
+    height: 170px;
     position: relative;
     top: 50%;
     left: 50%;
@@ -45,11 +47,11 @@
     transition: all 1s ease;
     cursor: pointer;
   }
-  .welcome {
-    position: relative;
-    width: 90px;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
-  }
+  // .welcome {
+  //   position: relative;
+  //   width: 90px;
+  //   top: 20%;
+  //   left: 50%;
+  //   transform: translate(-50%);
+  // }
 }
