@@ -26,7 +26,7 @@
 其他公共配置使用搜索引擎即可
 # 部分界面展示
 ![image](https://user-images.githubusercontent.com/87634542/162579874-fc20c70f-8c29-4eb9-9927-7997d8ae3a85.png)
-![Uploading image.png…]()
+![image](https://user-images.githubusercontent.com/87634542/162580084-460c6515-cc0c-4ddb-8589-80b85e9737e0.png)
 # 状态
 项目持续更新，优化中....
 # 给孩子一个小星星![T_ZKW6KJ_X{% %P_AY$`( X](https://user-images.githubusercontent.com/87634542/160980828-5dd6691b-db15-4152-9916-8acd2c4cf324.png)
