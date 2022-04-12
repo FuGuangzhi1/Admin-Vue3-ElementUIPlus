@@ -1,8 +1,7 @@
 <template>
     <span>
         <el-tabs
-            v-model="editableTabsValue"
-            type="card"
+            v-model="editableTabsValue"       
             class="demo-tabs"
             closable
             @tab-remove="removeTab"

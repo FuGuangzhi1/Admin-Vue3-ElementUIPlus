@@ -1,5 +1,5 @@
 <template>
-    <div class="demo-collapse">
+    <el-card class="cardHigth">
         <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item title="项目技术栈描述" name="1">
                 <div>一个管理系统</div>
@@ -13,13 +13,22 @@
                 <div>持续更新中......</div>
             </el-collapse-item>
         </el-collapse>
-    </div>
+        </el-card>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ProfilePhoto } from '@/business/personalInfoBLL';
+import { onMounted, ref } from 'vue'
 const activeNames = ref(['0'])
 const handleChange = (val: string[]) => {
     console.log(val)
 }
+onMounted(async () => {
+    await ProfilePhoto()
+})  
 </script>
+<style>
+.cardHigth {
+    height: 520px;
+}
+</style>

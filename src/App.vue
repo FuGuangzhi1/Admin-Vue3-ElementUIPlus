@@ -8,4 +8,5 @@
 
 <style lang="scss">
 @import "@/style/app.scss";
+
 </style>

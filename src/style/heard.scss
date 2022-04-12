@@ -1,0 +1,31 @@
+
+.img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    float: right;
+    margin-right: 20px;
+}
+
+.common-layout {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+
+    .el-container {
+        height: 100%;
+    }
+
+    .upload {
+        width: 200px;
+        float: right;
+        margin-top: 15px;
+
+        .el-button {
+            float: left;
+            margin-left: 10px;
+        }
+    }
+}
+
+

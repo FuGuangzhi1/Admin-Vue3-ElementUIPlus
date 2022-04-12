@@ -1,34 +1,20 @@
 <template>
-    <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-    >
-        <el-menu-item index="1">Processing Center</el-menu-item>
-        <el-sub-menu index="2">
-            <template #title>Workspace</template>
-            <el-menu-item index="2-1">item one</el-menu-item>
-            <el-menu-item index="2-2">item two</el-menu-item>
-            <el-menu-item index="2-3">item three</el-menu-item>
-            <el-sub-menu index="2-4">
-                <template #title>item four</template>
-                <el-menu-item index="2-4-1">item one</el-menu-item>
-                <el-menu-item index="2-4-2">item two</el-menu-item>
-                <el-menu-item index="2-4-3">item three</el-menu-item>
-            </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="3" disabled>Info</el-menu-item>
-        <el-menu-item index="4">Orders</el-menu-item>
-    </el-menu>
-    <div class="h-6"></div>
+    <img v-if="squareUrl" :src="squareUrl" class="img" />
+    <div class="upload">
+        <el-button @click="loginOut">登出</el-button>
+        <el-upload action :http-request="handleRequest" :show-file-list="false">
+            <el-button>头像上传</el-button>
+        </el-upload>  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+import { squareUrl, handleRequest } from '@/business/personalInfoBLL'
+import router from '@/router';
+const loginOut = () => {
+    window.localStorage.clear()
+    router.push('/')
 }
 </script>
+<style lang="scss" scoped>
+@import "@/style/heard.scss"
+</style>
