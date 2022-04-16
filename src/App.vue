@@ -8,5 +8,7 @@
 
 <style lang="scss">
 @import "@/style/app.scss";
-
+.cardHigth {
+    height: 520px;
+}
 </style>

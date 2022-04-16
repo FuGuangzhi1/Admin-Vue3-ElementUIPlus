@@ -39,11 +39,14 @@
 </template>
 <script lang="ts" setup>
 import LeftMenu from './Layout/LeftMenu.vue';
-import { shallowRef } from 'vue';
+import { onMounted, shallowRef } from 'vue';
 import Tage from '@/views/Layout/Tage.vue'
 import Heard from '@/views/Layout/Head.vue'
+import { ProfilePhoto } from '@/business/personalInfoBLL';
 const initSuccess: any = shallowRef<Boolean>(false);
-
+onMounted(async () => {
+  await ProfilePhoto()
+})
 
 setTimeout(() => initSuccess.value = true, 200)
 </script>
