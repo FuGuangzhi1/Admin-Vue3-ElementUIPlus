@@ -2,12 +2,19 @@ import { reactive, ref } from 'vue'
 import StudyInfoApi from '@/api/studyInfoApi'
 import { ElForm } from 'element-plus'
 import { timestampToTime } from '@/utils/dataTimeHelper'
-
+import { exportExecl } from '@/utils/execlHelper'
+//当前页面数据行数
 export const total = ref<Number>(0)
+//是否是Xlxs
+export const isXlxs = ref<boolean>(true)
+//控制Execl模态框开关
+export const execlDialogVisible = ref(false)
 //控制模态框开关
 export const centerDialogVisible = ref(false)
 //模态框提示
 export const tip = ref("tip")
+//模态框提示
+export const execlTip = ref("Execl导出")
 //表格数据
 export const tableData: any = ref([])
 //是否显示分页组件
@@ -17,11 +24,13 @@ export const selectData: any = reactive([]);
 //获取表单数据
 export const ruleFormRef = ref<InstanceType<typeof ElForm> | undefined>()
 //下拉框真实数据
-export const studyTypeId = ref('')
+export const studyTypeId = ref<string>('')
 //当前页面
-export const currentPage = ref(0)
+export const currentPage = ref<number>(0)
 //一页显示的数据
-export const pageSize = ref(5)
+export const pageSize = ref<number>(5)
+//execl的名字
+export const execlName = ref<string>("")
 //查询条件
 export const formInline = reactive({
     studyInfoName: '',
@@ -29,12 +38,11 @@ export const formInline = reactive({
 })
 //表格数据获取
 export const loadTableData = async () => {
-    console.log(formInline)
-    const result = await StudyInfoApi.GetStudyInfoViewAsync(formInline.studyInfoName, formInline.studyTypeId, currentPage.value, pageSize.value);
-    total.value = result.total
-    isShowPagination.value = parseInt(result.total) > 5
-    tableData.value = result.data
-    console.log(result)
+    const { data: data, total: count } = await StudyInfoApi
+        .GetStudyInfoViewAsync(formInline.studyInfoName, formInline.studyTypeId, currentPage.value, pageSize.value);
+    total.value = count
+    isShowPagination.value = parseInt(count) > 5
+    tableData.value = data
 }
 
 //表格数据查询
@@ -123,6 +131,7 @@ export const rules = reactive({
 export const resetForm = (formEl: InstanceType<typeof ElForm> | undefined) => {
     if (!formEl) return
     formEl.resetFields()
+    console
 }
 export const fromChange = (val: any) => {
     studyTypeId.value = val
@@ -139,4 +148,8 @@ export const handleCurrentChange = async (val: number) => {
     currentPage.value = val
     await loadTableData()
     console.log(val)
+}
+export const onExportExecl = async () => {
+    const result = await StudyInfoApi.GetStudyInfoExeclAsync(execlName.value, "", isXlxs.value);
+    exportExecl(result, execlName.value)
 }

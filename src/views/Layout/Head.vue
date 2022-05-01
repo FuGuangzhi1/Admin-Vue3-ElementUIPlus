@@ -1,5 +1,5 @@
 <template>
-    <img v-if="squareUrl" :src="squareUrl" class="img" />
+    <img v-if="squareUrl" :src="squareUrl" alt="需要上传你的头像" class="img" />
     <div class="upload">
         <el-button @click="loginOut">登出</el-button>
         <el-upload action :http-request="handleRequest" :show-file-list="false">

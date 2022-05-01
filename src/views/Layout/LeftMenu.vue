@@ -1,36 +1,21 @@
 <template>
     <div>
         <div class="openSwitch" @click="watchIsCollapse">
-            <component
-                style="width: 18px; height: 20px; margin-top: 2px; color:black;"
-                :is="iconName"
-            ></component>&nbsp;
+            <component style="width: 18px; height: 20px; margin-top: 2px; color:black;" :is="iconName"></component>
+            &nbsp;
         </div>
-        <el-menu
-            class="el-menu-vertical-demo"
-            default-active="2"
-            @open="handleOpen"
-            @close="handleClose"
-            :collapse="isCollapse"
-            :collapse-transition="false"
-        >
+        <el-menu :default-active="index" unique-opened class="el-menu-vertical-demo" 
+         :collapse="isCollapse" :collapse-transition="false">
             <el-sub-menu :index="item.menuId" v-for="item in menuList" :key="item.menuId">
                 <template #title>
                     <component style="width: 20px; height: 20px;" :is="item.icon"></component>
                     <span class="spanParent">{{ item.menuName }}</span>
                 </template>
 
-                <el-menu-item
-                    :index="subItem.menuId + ''"
-                    v-for="subItem in item.children"
-                    :key="subItem.menuId"
-                    @click="skip(subItem.path, subItem.menuName)"
-                >
+                <el-menu-item :index="subItem.menuId" v-for="subItem in item.children" :key="subItem.menuId"
+                    @click="skip(subItem.path, subItem.menuName,subItem.menuId)">
                     <template #title>
-                        <component
-                            style="width: 20px; height: 20px; color: #000;"
-                            :is="subItem.icon"
-                        ></component>
+                        <component style="width: 20px; height: 20px; color: #000;" :is="subItem.icon"></component>
                         <span class="spanChilder">{{ subItem.menuName }}</span>
                     </template>
                 </el-menu-item>
@@ -41,27 +26,26 @@
 
 <script lang="ts">
 import {
-    handleOpen,
-    handleClose,
     iconName,
     skip,
+    index
 } from '@/business/leftMenuBLL'
 
 import HomeApi from '@/api/homeApi'
 import { defineComponent, onMounted, ref } from 'vue'
-import { getLocalData, setLocalData } from '@/utils/localStorageHelper'
+import { getSessionData, setSessionData } from '@/utils/sessionStorageHelper'
 export default defineComponent({
     name: "leftMenu",
     setup(props, { emit, attrs, slots }) {
         const isCollapse = ref<Boolean>(false)
         const menuList: any = ref([])
         onMounted(async () => {
-            if (getLocalData('GetMenu') == null) {
+            if (getSessionData('GetMenu') == null) {
                 const result = await HomeApi.GetMenuAsync()
                 menuList.value = result.data
-                setLocalData('GetMenu', JSON.stringify(result.data))
+                setSessionData('GetMenu', JSON.stringify(result.data))
             } else {
-                menuList.value = JSON.parse(getLocalData('GetMenu') ?? '')
+                menuList.value = JSON.parse(getSessionData('GetMenu') ?? '')
             }
 
         })
@@ -79,8 +63,7 @@ export default defineComponent({
             }
         }
         return {
-            handleOpen,
-            handleClose,
+            index,
             isCollapse,
             iconName,
             skip,
@@ -102,6 +85,7 @@ export default defineComponent({
     transform: translate(0, -50%); */
     cursor: pointer;
 }
+
 .el-sub-menu__title,
 .el-menu,
 .el-menu-vertical-demo {
@@ -109,10 +93,12 @@ export default defineComponent({
     text-align: center;
     border: 0px;
 }
+
 .spanParent {
     font-size: 18px;
     margin-left: 10px;
 }
+
 .spanChilder {
     font-size: 12px;
     margin-left: 10px;

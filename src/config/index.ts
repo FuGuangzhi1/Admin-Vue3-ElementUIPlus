@@ -1,0 +1,1 @@
+export const baseURL: string = process.env.NODE_ENV === 'production' ? 'http://localhost:2022/' : 'http://localhost:5140/'

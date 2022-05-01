@@ -1,4 +1,5 @@
 
+import { baseURL } from '@/config';
 import router from '@/router';
 import { massageShow } from '@/utils/messageInfo';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -6,7 +7,12 @@ import { ElLoading } from 'element-plus';
 
 
 let loading: any;
-
+// create an axios instance
+const service = axios.create({
+  baseURL: baseURL, 
+  // withCredentials: true, // send cookies when cross-domain requests
+  timeout: 20000 // request timeout
+})
 const startLoading = () => {
 
   interface Options {
@@ -25,7 +31,6 @@ const startLoading = () => {
 
 const getToken = (): string | null => {
   let token: string | null = window.localStorage.getItem('access_token')
-  console.log(token)
   if (token === null || token === '') {
     return getToken()
   } else {
@@ -36,8 +41,7 @@ const endLoading = () => {
   loading.close();
 }
 // 请求拦截
-axios.interceptors.request.use((config: AxiosRequestConfig) => {
-  console.log(config.url)
+service.interceptors.request.use((config: AxiosRequestConfig) => {
   // 加载
   startLoading();
   if (config.url !== 'api/account/login') {
@@ -50,10 +54,9 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
 
 
 // 响应拦截
-axios.interceptors.response.use((response: AxiosResponse<any>) => {
+service.interceptors.response.use((response: AxiosResponse<any>) => {
   // 结束loading
   endLoading();
-  console.log(response)
   //不同相应所给的提示
   if (response.data) {
     massageShow(response.data.state, response.data.massage)
@@ -62,7 +65,6 @@ axios.interceptors.response.use((response: AxiosResponse<any>) => {
 }, (error: AxiosError) => {
   // 结束loading
   endLoading();
-  console.log(error.response?.headers['token-expired'])
   //过期提示
   if (error.response?.headers['token-expired'] == 'true') {
     massageShow(1, "登录过期")
@@ -71,9 +73,10 @@ axios.interceptors.response.use((response: AxiosResponse<any>) => {
   } else {
     // 错误提醒
     massageShow(1, error.message)
+    console.log(error.message)
     return Promise.reject(error);
   }
 
 })
 
-export default axios;
+export default service;

@@ -45,6 +45,18 @@ class StudyInfoApi {
             }
         })
     }
+    public async GetStudyInfoExeclAsync(execlName: string | null, sheetName: string | null, isXlsx: boolean | null): Promise<any> {
+        return await httpClinet.request({
+            responseType: 'blob',
+            url: this.url + 'GetStudyInfoExecl',
+            method: 'get',
+            params: {
+                execlName: execlName,
+                sheetNamr: sheetName,
+                isXlsx:isXlsx
+            }
+        })
+    }
 }
 
 export default new StudyInfoApi()

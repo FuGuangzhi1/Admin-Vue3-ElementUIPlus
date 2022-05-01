@@ -31,6 +31,8 @@
 import { rules, loginForm, submitForm, ruleFormRef, onShow, goRegister,goNight } from "../utils/loginFormManage";
 import { resetForm } from "../utils/restForm"
 console.log("人生如逆旅，我亦是行人。")
+console.log("项目开源地址https://github.com/FuGuangzhi1/showtimecodeweb")
+console.log("喜欢就点个Star  吧")
 const message = '点击可更改透明度'
 const iconName = 'cloudy'
 </script>

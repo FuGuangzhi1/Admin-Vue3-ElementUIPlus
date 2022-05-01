@@ -1,19 +1,8 @@
 <template>
     <span>
-        <el-tabs
-            v-model="editableTabsValue"       
-            class="demo-tabs"
-            closable
-            @tab-remove="removeTab"
-            @tab-click="toLink"
-        >
-            <el-tab-pane
-                v-for="item in editableTabs"
-                :key="item.name"
-                :label="item.title"
-                :name="item.name"
-                :lazy="true"
-            ></el-tab-pane>
+        <el-tabs v-model="editableTabsValue" class="demo-tabs" closable @tab-remove="removeTab" @tab-click="toLink">
+            <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name"
+                :lazy="true"></el-tab-pane>
         </el-tabs>
     </span>
 </template>
@@ -21,6 +10,7 @@
 import { editableTabs, editableTabsValue, toLink } from '@/business/tageBLL';
 
 const removeTab = (targetName: string) => {
+    if (targetName === "0") return
     const tabs = editableTabs.value
     let activeName = editableTabsValue.value
     if (activeName === targetName) {
@@ -39,7 +29,7 @@ const removeTab = (targetName: string) => {
 }
 </script>
 <style>
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
     padding: 32px;
     background-color: #f4f5f7;
     color: #6b778c;

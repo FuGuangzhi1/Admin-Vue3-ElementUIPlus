@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0bd3d4"],{"2ac2":function(e,t,c){"use strict";c.r(t);var n=c("7a23"),r=Object(n["createElementVNode"])("h1",null,"学习2",-1);function o(e,t){var c=Object(n["resolveComponent"])("el-card");return Object(n["openBlock"])(),Object(n["createBlock"])(c,{class:"cardHigth"},{default:Object(n["withCtx"])((function(){return[r]})),_:1})}var a=c("6b0d"),d=c.n(a);const u={},l=d()(u,[["render",o]]);t["default"]=l}}]);
+//# sourceMappingURL=chunk-2d0bd3d4.a0dfcd32.js.map
