@@ -12,7 +12,7 @@
 启动  npm run serve<br/>
 （注意需要运行后端前端才可以登录和使用相应功能）<br/>
 # 项目分层介绍
-![image](https://user-images.githubusercontent.com/87634542/160980090-54701581-9aa1-40b8-ad3f-36af7bbf5404.png) <br/>
+![image](https://user-images.githubusercontent.com/87634542/166127130-227f6f5a-8f3d-4b16-9f34-f762642ceb0a.png) <br/>
 1.api对应调用后端的api <br/>
 2.business逻辑多的页面单独写的ts <br/>
 3.components 公共组件 <br/>
