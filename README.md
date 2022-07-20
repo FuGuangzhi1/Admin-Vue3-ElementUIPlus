@@ -7,7 +7,7 @@
 对应后端Git地址<a href="https://github.com/FuGuangzhi1/ShowTimeCodeEnd">后端</a> <br/>
 
 # 项目运行
-下载依赖 Npm Install<br/>
+下载依赖 Npm Install(不小心上传了npm模块，直接 npm run serve可以就直接 npm run serve。。)<br/>
 <br/>
 启动  npm run serve<br/>
 （注意需要运行后端前端才可以登录和使用相应功能）<br/>
